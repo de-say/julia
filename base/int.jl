@@ -101,6 +101,9 @@ flipsign(x::Signed, y::Float32) = flipsign(x, bitcast(Int32, y))
 flipsign(x::Signed, y::Float64) = flipsign(x, bitcast(Int64, y))
 flipsign(x::Signed, y::Real)    = flipsign(x, -oftype(x, signbit(y)))
 
+flipsign(x::Signed,  ::Unsigned) = +x
+flipsign(x::Integer, ::Unsigned) = +x
+
 copysign(x::Signed, y::Signed)  = flipsign(x, x ⊻ y)
 copysign(x::Signed, y::Float16) = copysign(x, bitcast(Int16, y))
 copysign(x::Signed, y::Float32) = copysign(x, bitcast(Int32, y))

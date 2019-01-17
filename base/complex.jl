@@ -178,6 +178,7 @@ complex(::Type{T}) where {T<:Real} = Complex{T}
 complex(::Type{Complex{T}}) where {T<:Real} = Complex{T}
 
 flipsign(x::Complex, y::Real) = ifelse(signbit(y), -x, x)
+flipsign(x::Complex, ::Unsigned) = +x
 
 function show(io::IO, z::Complex)
     r, i = reim(z)

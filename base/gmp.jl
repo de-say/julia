@@ -394,6 +394,8 @@ function big end
 big(::Type{<:Integer})  = BigInt
 big(::Type{<:Rational}) = Rational{BigInt}
 
+big(n::Integer) = convert(BigInt, n)
+
 # Binary ops
 for (fJ, fC) in ((:+, :add), (:-,:sub), (:*, :mul),
                  (:fld, :fdiv_q), (:div, :tdiv_q), (:mod, :fdiv_r), (:rem, :tdiv_r),
@@ -584,6 +586,7 @@ flipsign!(x::BigInt, y::Integer) = (signbit(y) && (x.size = -x.size); x)
 flipsign( x::BigInt, y::Integer) = signbit(y) ? -x : x
 flipsign( x::BigInt, y::BigInt)  = signbit(y) ? -x : x
 # above method to resolving ambiguities with flipsign(::T, ::T) where T<:Signed
+flipsign(x::BigInt, ::Unsigned) = +x
 
 show(io::IO, x::BigInt) = print(io, string(x))
 

@@ -172,6 +172,8 @@ julia> flipsign(5, -3)
 """
 flipsign(x::Real, y::Real) = ifelse(signbit(y), -x, +x) # the + is for type-stability on Bool
 
+flipsign(x::Real, ::Unsigned) = +x
+
 """
     copysign(x, y) -> z
 

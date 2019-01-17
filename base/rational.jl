@@ -101,6 +101,8 @@ end
 Rational(x::Float64) = Rational{Int64}(x)
 Rational(x::Float32) = Rational{Int}(x)
 
+big(q::Rational) = big(numerator(q))//big(denominator(q))
+
 big(z::Complex{<:Rational{<:Integer}}) = Complex{Rational{BigInt}}(z)
 
 promote_rule(::Type{Rational{T}}, ::Type{S}) where {T<:Integer,S<:Integer} = Rational{promote_type(T,S)}
@@ -227,6 +229,7 @@ sign(x::Rational) = oftype(x, sign(x.num))
 signbit(x::Rational) = signbit(x.num)
 copysign(x::Rational, y::Real) = copysign(x.num,y) // x.den
 copysign(x::Rational, y::Rational) = copysign(x.num,y.num) // x.den
+flipsign(x::Rational, ::Unsigned) = +x
 
 abs(x::Rational) = Rational(abs(x.num), x.den)
 

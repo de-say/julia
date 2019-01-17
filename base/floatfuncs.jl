@@ -11,6 +11,8 @@ flipsign(x::Float64, y::Float64) = bitcast(Float64, xor_int(bitcast(UInt64, x), 
 flipsign(x::Float32, y::Float32) = bitcast(Float32, xor_int(bitcast(UInt32, x), and_int(bitcast(UInt32, y), 0x80000000)))
 flipsign(x::Float32, y::Real) = flipsign(x, Float32(y))
 flipsign(x::Float64, y::Real) = flipsign(x, Float64(y))
+flipsign(x::Float32, y::Unsigned) = +x
+flipsign(x::Float64, y::Unsigned) = +x
 
 signbit(x::Float64) = signbit(bitcast(Int64, x))
 signbit(x::Float32) = signbit(bitcast(Int32, x))
